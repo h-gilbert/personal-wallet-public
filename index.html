@@ -1019,6 +1019,14 @@
             align-items: center;
             justify-content: center;
             font-size: 1.75rem;
+            overflow: hidden;
+        }
+
+        .integration-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
         }
 
         .integration-name {
@@ -1567,72 +1575,45 @@
                     </div>
                     <span class="integration-name">Akahu (NZ Banks)</span>
                 </div>
-                <!-- Wise - Official green flag -->
+                <!-- Wise -->
                 <div class="integration-logo fade-up stagger-2">
                     <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M2 7l9.3 5.4L2 17.6V7z" fill="#9FE870"/>
-                            <path d="M11.3 12.4l9.4-5.4v10.6l-9.4 5.4V12.4z" fill="#9FE870"/>
-                            <path d="M20.7 7l9.3 5.4-9.3 5.2V7z" fill="#9FE870"/>
-                        </svg>
+                        <img src="/wise-logo.webp" alt="Wise">
                     </div>
                     <span class="integration-name">Wise</span>
                 </div>
-                <!-- OKX - Official grid logo -->
+                <!-- OKX -->
                 <div class="integration-logo fade-up stagger-3">
                     <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <rect x="4" y="4" width="10" height="10" rx="1.5" fill="currentColor"/>
-                            <rect x="18" y="4" width="10" height="10" rx="1.5" fill="currentColor"/>
-                            <rect x="4" y="18" width="10" height="10" rx="1.5" fill="currentColor"/>
-                            <rect x="18" y="18" width="10" height="10" rx="1.5" fill="currentColor"/>
-                        </svg>
+                        <img src="/okx-logo.jpg" alt="OKX">
                     </div>
                     <span class="integration-name">OKX</span>
                 </div>
-                <!-- Bybit - Official orange bar -->
+                <!-- Bybit -->
                 <div class="integration-logo fade-up stagger-4">
                     <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <rect x="14" y="4" width="4" height="24" rx="1" fill="#F7A600"/>
-                            <path d="M4 12h6c.6 0 1 .4 1 1v2c0 .6-.4 1-1 1H6.5L10 20c.2.3.2.6 0 .8L6.5 24h4c.6 0 1 .4 1 1v2c0 .6-.4 1-1 1H4" stroke="currentColor" stroke-width="2" fill="none"/>
-                            <path d="M28 12h-6c-.6 0-1 .4-1 1v2c0 .6.4 1 1 1h3.5L22 20c-.2.3-.2.6 0 .8l3.5 3.2h-4c-.6 0-1 .4-1 1v2c0 .6.4 1 1 1h6" stroke="currentColor" stroke-width="2" fill="none"/>
-                        </svg>
+                        <img src="/bybit-logo.jpg" alt="Bybit">
                     </div>
                     <span class="integration-name">Bybit</span>
                 </div>
-                <!-- MEXC - Official logo -->
+                <!-- MEXC -->
                 <div class="integration-logo fade-up stagger-5">
                     <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 4L8 16l8 12 8-12L16 4z" fill="#00B897"/>
-                            <path d="M16 4L4 16l6 9 6-9-6-9 6-3z" fill="#76FCB2"/>
-                        </svg>
+                        <img src="/mexc-logo.jpeg" alt="MEXC">
                     </div>
                     <span class="integration-name">MEXC</span>
                 </div>
-                <!-- Kucoin - Official logo -->
+                <!-- Kucoin -->
                 <div class="integration-logo fade-up stagger-6">
                     <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <circle cx="16" cy="16" r="14" fill="#0093DD"/>
-                            <path d="M12 16l5.2 5.3 3.3-3.3c.6-.6 1.5-.6 2 0 .6.6.6 1.6 0 2.2l-4.3 4.4c-.6.6-1.5.6-2.1 0l-6.2-6.4V22c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5V10c0-.8.7-1.5 1.5-1.5s1.5.7 1.5 1.5v3.8l6.2-6.4c.6-.6 1.5-.6 2.1 0l4.3 4.4c.6.6.6 1.6 0 2.2-.6.6-1.5.6-2 0l-3.3-3.4L12 16z" fill="#fff"/>
-                            <circle cx="18.7" cy="16" r="1.5" fill="#fff"/>
-                        </svg>
+                        <img src="/kucoin-logo.avif" alt="Kucoin">
                     </div>
                     <span class="integration-name">Kucoin</span>
                 </div>
-                <!-- Ethereum - Official diamond logo -->
+                <!-- Ethereum / EVM Wallets -->
                 <div class="integration-logo fade-up stagger-1">
                     <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-                            <path d="M16 2L8 16.5l8 4.8 8-4.8L16 2z" fill="#343434"/>
-                            <path d="M16 2v14.7l8-4.2L16 2z" fill="#8C8C8C"/>
-                            <path d="M16 23.2l-8-4.7L16 30l8-11.5-8 4.7z" fill="#3C3C3B"/>
-                            <path d="M16 23.2V30l8-11.5-8 4.7z" fill="#8C8C8C"/>
-                            <path d="M16 21.3l8-4.8-8-4.3v9.1z" fill="#141414"/>
-                            <path d="M8 16.5l8 4.8v-9.1l-8 4.3z" fill="#393939"/>
-                        </svg>
+                        <img src="/ethereum-logo.png" alt="Ethereum">
                     </div>
                     <span class="integration-name">EVM Wallets</span>
                 </div>
@@ -1793,4 +1774,4 @@
     </script>
 </body>
 </html>
-<!-- deployed Fri  9 Jan 2026 12:07:47 NZDT -->
+<!-- deployed Fri 17 Jan 2026 15:52:00 NZDT -->
