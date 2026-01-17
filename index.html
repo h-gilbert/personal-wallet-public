@@ -968,6 +968,89 @@
             position: relative;
         }
 
+        /* Source Code Section */
+        .source-code {
+            padding: 6rem 2rem;
+            background: var(--bg-primary);
+        }
+
+        .repo-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .repo-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .repo-card:hover {
+            border-color: var(--border-glow);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .repo-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            background: rgba(20, 184, 166, 0.15);
+            color: var(--accent-teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .repo-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .repo-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .repo-info p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .repo-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+            color: var(--text-muted);
+        }
+
+        .repo-arrow {
+            color: var(--text-muted);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .repo-card:hover .repo-arrow {
+            transform: translate(3px, -3px);
+            color: var(--accent-teal);
+        }
+
         /* Integrations Section */
         .integrations {
             padding: 6rem 2rem;
@@ -1297,7 +1380,7 @@
             <div class="nav-links">
                 <a href="#features">Features</a>
                 <a href="#integrations">Integrations</a>
-                <a href="https://github.com/h-gilbert/personal-wallet" target="_blank">GitHub</a>
+                <a href="#source-code">Source</a>
                 <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
@@ -1306,7 +1389,7 @@
                         <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
                     </svg>
                 </button>
-                <a href="https://github.com/h-gilbert/personal-wallet#installation" class="nav-cta">Get Started</a>
+                <a href="#source-code" class="nav-cta">Get Started</a>
             </div>
             <button class="theme-toggle mobile-theme-toggle" id="mobileThemeToggle" aria-label="Toggle theme">
                 <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1343,11 +1426,11 @@
                     Self-hosted, private, and completely under your control.
                 </p>
                 <div class="hero-buttons">
-                    <a href="https://github.com/h-gilbert/personal-wallet#installation" class="btn btn-primary">
+                    <a href="#source-code" class="btn btn-primary">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
                         </svg>
-                        View on GitHub
+                        View Source Code
                     </a>
                     <a href="#features" class="btn btn-secondary">
                         Explore Features
@@ -1657,6 +1740,65 @@
         </div>
     </section>
 
+    <!-- Source Code Section -->
+    <section class="source-code" id="source-code">
+        <div class="section-header fade-up">
+            <span class="section-tag">Open Source</span>
+            <h2>Get the source code</h2>
+            <p>Personal Wallet is fully open source. Clone the repos and self-host on your own server.</p>
+        </div>
+
+        <div class="repo-grid">
+            <a href="https://github.com/h-gilbert/personal-wallet-frontend" target="_blank" class="repo-card fade-up stagger-1">
+                <div class="repo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
+                    </svg>
+                </div>
+                <div class="repo-info">
+                    <h3>Frontend</h3>
+                    <p>Nuxt 3 + Vue 3 + TypeScript</p>
+                    <span class="repo-tag">Vue</span>
+                </div>
+                <svg class="repo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                </svg>
+            </a>
+
+            <a href="https://github.com/h-gilbert/personal-wallet-backend" target="_blank" class="repo-card fade-up stagger-2">
+                <div class="repo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
+                    </svg>
+                </div>
+                <div class="repo-info">
+                    <h3>Backend</h3>
+                    <p>Go + Chi + PostgreSQL</p>
+                    <span class="repo-tag">Go</span>
+                </div>
+                <svg class="repo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                </svg>
+            </a>
+
+            <a href="https://github.com/h-gilbert/personal-wallet-ios" target="_blank" class="repo-card fade-up stagger-3">
+                <div class="repo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
+                    </svg>
+                </div>
+                <div class="repo-info">
+                    <h3>iOS App</h3>
+                    <p>Swift + SwiftUI</p>
+                    <span class="repo-tag">Swift</span>
+                </div>
+                <svg class="repo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="cta">
         <div class="cta-bg">
@@ -1683,11 +1825,11 @@
                     <span>Docker Ready</span>
                 </div>
             </div>
-            <a href="https://github.com/h-gilbert/personal-wallet" class="btn btn-primary">
+            <a href="#source-code" class="btn btn-primary">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
                 </svg>
-                Get Started on GitHub
+                View Source Code
             </a>
         </div>
     </section>
@@ -1701,9 +1843,9 @@
                     <span class="logo-text">Personal Wallet</span>
                 </a>
                 <div class="footer-links">
-                    <a href="https://github.com/h-gilbert/personal-wallet" target="_blank">GitHub</a>
-                    <a href="https://github.com/h-gilbert/personal-wallet#installation" target="_blank">Documentation</a>
-                    <a href="https://github.com/h-gilbert/personal-wallet/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/h-gilbert/personal-wallet-frontend" target="_blank">Frontend</a>
+                    <a href="https://github.com/h-gilbert/personal-wallet-backend" target="_blank">Backend</a>
+                    <a href="https://github.com/h-gilbert/personal-wallet-ios" target="_blank">iOS</a>
                 </div>
             </div>
         </div>
