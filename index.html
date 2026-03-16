@@ -3,1914 +3,483 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Wallet - Your Complete Financial Picture</title>
-    <meta name="description" content="Self-hosted personal finance app. Track bank accounts, crypto exchanges, and DeFi wallets in one unified dashboard.">
-
-    <!-- Favicon -->
+    <title>Personal Wallet</title>
+    <meta name="description" content="A self-hosted personal finance app. Track bank accounts, crypto, budgets, and savings goals across web and iOS.">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
     <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
         :root {
-            --bg-deep: #050810;
-            --bg-primary: #0a0f1e;
-            --bg-secondary: #111827;
-            --bg-card: rgba(17, 24, 39, 0.7);
-            --bg-glass: rgba(255, 255, 255, 0.03);
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --border-glow: rgba(20, 184, 166, 0.3);
-
-            --text-primary: #f8fafc;
-            --text-secondary: rgba(248, 250, 252, 0.7);
-            --text-muted: rgba(248, 250, 252, 0.4);
-
-            --accent-teal: #14b8a6;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-gold: #f59e0b;
-            --accent-rose: #f43f5e;
-            --accent-emerald: #10b981;
-
-            --gradient-hero: linear-gradient(135deg, #0a0f1e 0%, #111827 50%, #0f172a 100%);
-            --gradient-accent: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
-            --gradient-glow: radial-gradient(ellipse at center, rgba(20, 184, 166, 0.15) 0%, transparent 70%);
-
-            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 60px rgba(20, 184, 166, 0.2);
-
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 28px;
-
-            --font-display: 'Sora', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-
-            --nav-bg: rgba(5, 8, 16, 0.8);
-            --nav-bg-scroll: rgba(5, 8, 16, 0.95);
-            --mockup-header-bg: rgba(0, 0, 0, 0.3);
-            --grid-line-color: rgba(255,255,255,0.02);
-            --noise-opacity: 0.03;
+            --bg: #FAFAF8;
+            --bg-warm: #F5F3EF;
+            --text: #1A1A1A;
+            --text-secondary: #6B6B6B;
+            --text-tertiary: #9B9B9B;
+            --accent: #2E5CE5;
+            --border: #E8E6E1;
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'DM Sans', -apple-system, sans-serif;
+            --max-w: 1200px;
         }
 
-        /* Light theme */
-        [data-theme="light"] {
-            --bg-deep: #f8fafc;
-            --bg-primary: #f1f5f9;
-            --bg-secondary: #e2e8f0;
-            --bg-card: rgba(255, 255, 255, 0.9);
-            --bg-glass: rgba(0, 0, 0, 0.02);
-            --border-subtle: rgba(0, 0, 0, 0.08);
-            --border-glow: rgba(20, 184, 166, 0.4);
-
-            --text-primary: #0f172a;
-            --text-secondary: rgba(15, 23, 42, 0.7);
-            --text-muted: rgba(15, 23, 42, 0.5);
-
-            --gradient-hero: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 50%, #f8fafc 100%);
-            --gradient-glow: radial-gradient(ellipse at center, rgba(20, 184, 166, 0.1) 0%, transparent 70%);
-
-            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            --shadow-glow: 0 0 60px rgba(20, 184, 166, 0.15);
-
-            --nav-bg: rgba(248, 250, 252, 0.8);
-            --nav-bg-scroll: rgba(248, 250, 252, 0.95);
-            --mockup-header-bg: rgba(0, 0, 0, 0.05);
-            --grid-line-color: rgba(0,0,0,0.03);
-            --noise-opacity: 0.015;
-        }
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: var(--font-body);
-            background: var(--bg-deep);
-            color: var(--text-primary);
-            line-height: 1.6;
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* Noise texture overlay */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            opacity: var(--noise-opacity);
-            pointer-events: none;
-            z-index: 1000;
+        /* Fade-in on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-display);
-            font-weight: 600;
-            line-height: 1.2;
-        }
-
-        /* Navigation */
+        /* ─── NAV ─── */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 1.25rem 2rem;
-            background: var(--nav-bg);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-subtle);
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-accent);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.25rem;
-        }
-
-        .logo-text {
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 1.25rem;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-cta {
-            background: var(--gradient-accent);
-            color: var(--bg-deep) !important;
-            padding: 0.625rem 1.5rem;
-            border-radius: var(--radius-md);
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            padding: 8rem 2rem 4rem;
-            background: var(--gradient-hero);
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
-
-        .gradient-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: var(--accent-teal);
-            top: -20%;
-            right: -10%;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: var(--accent-blue);
-            bottom: -15%;
-            left: -5%;
-            animation-delay: -7s;
-        }
-
-        .orb-3 {
-            width: 300px;
-            height: 300px;
-            background: var(--accent-purple);
-            top: 40%;
-            left: 30%;
-            opacity: 0.2;
-            animation-delay: -14s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.05); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-
-        .grid-overlay {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(var(--grid-line-color) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grid-line-color) 1px, transparent 1px);
-            background-size: 60px 60px;
-            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 1400px;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .hero-text {
-            max-width: 600px;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            padding: 0.5rem 1rem;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 1.5rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-badge .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-emerald);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.2); }
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.02em;
-        }
-
-        .hero h1 .gradient-text {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: var(--radius-md);
-            font-family: var(--font-display);
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--gradient-accent);
-            color: var(--bg-deep);
-            box-shadow: 0 0 30px rgba(20, 184, 166, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 50px rgba(20, 184, 166, 0.4);
-        }
-
-        .btn-secondary {
-            background: var(--bg-glass);
-            color: var(--text-primary);
-            border: 1px solid var(--border-subtle);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--border-glow);
-        }
-
-        /* Dashboard Mockup */
-        .hero-visual {
-            position: relative;
-            perspective: 1000px;
-        }
-
-        .dashboard-mockup {
-            position: relative;
-            transform: rotateY(-8deg) rotateX(5deg);
-            transform-style: preserve-3d;
-            animation: mockupFloat 6s ease-in-out infinite;
-        }
-
-        @keyframes mockupFloat {
-            0%, 100% { transform: rotateY(-8deg) rotateX(5deg) translateY(0); }
-            50% { transform: rotateY(-8deg) rotateX(5deg) translateY(-20px); }
-        }
-
-        .mockup-window {
-            background: var(--bg-card);
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--border-subtle);
-            overflow: hidden;
-            box-shadow: var(--shadow-xl), var(--shadow-glow);
-            backdrop-filter: blur(20px);
-        }
-
-        .mockup-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 1rem 1.25rem;
-            background: var(--mockup-header-bg);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .mockup-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .mockup-dot.red { background: #f43f5e; }
-        .mockup-dot.yellow { background: #f59e0b; }
-        .mockup-dot.green { background: #10b981; }
-
-        .mockup-content {
-            padding: 1.5rem;
-        }
-
-        .mockup-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-card {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 1rem;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 0.25rem;
-        }
-
-        .stat-value {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .stat-change {
-            font-size: 0.75rem;
-            color: var(--accent-emerald);
-            margin-top: 0.25rem;
-        }
-
-        .mockup-chart {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-md);
-            padding: 1rem;
-            height: 160px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-line {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            height: 100px;
-        }
-
-        .chart-line svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .chart-path {
-            fill: none;
-            stroke: url(#chartGradient);
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .chart-area {
-            fill: url(#areaGradient);
-        }
-
-        /* App Mockup Styles */
-        .app-window {
-            width: 520px;
-        }
-
-        .app-layout {
-            display: flex;
-            min-height: 380px;
-        }
-
-        .app-sidebar {
-            width: 48px;
-            background: rgba(0, 0, 0, 0.2);
-            border-right: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 12px 0;
-            gap: 8px;
-        }
-
-        .sidebar-logo {
-            width: 28px;
-            height: 28px;
-            background: var(--gradient-accent);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 12px;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-
-        .sidebar-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .sidebar-item {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            transition: all 0.2s;
-        }
-
-        .sidebar-item.active {
-            background: var(--bg-glass);
-            color: var(--accent-teal);
-        }
-
-        .app-main {
-            flex: 1;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            overflow: hidden;
-        }
-
-        .app-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        .app-subtitle {
-            display: block;
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-        }
-
-        .app-title {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .currency-toggle {
-            font-size: 10px;
-            font-weight: 600;
-            padding: 4px 8px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--text-secondary);
-        }
-
-        .networth-card {
-            background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%);
-            border-radius: 10px;
-            padding: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .networth-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #fbbf24, #f59e0b);
-        }
-
-        .networth-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .networth-label {
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .networth-value {
-            font-family: var(--font-display);
-            font-size: 22px;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: -0.02em;
-        }
-
-        .networth-accounts {
-            font-size: 9px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .donut-chart {
-            width: 60px;
-            height: 60px;
-        }
-
-        .donut-chart svg {
-            transform: rotate(-90deg);
-        }
-
-        .account-groups {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-
-        .account-group {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .group-header {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 8px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .group-icon {
-            width: 22px;
-            height: 22px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .group-icon.blue {
-            background: rgba(59, 130, 246, 0.2);
-            color: #3B82F6;
-        }
-
-        .group-icon.purple {
-            background: rgba(139, 92, 246, 0.2);
-            color: #8B5CF6;
-        }
-
-        .group-name {
-            flex: 1;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .group-total {
-            font-family: var(--font-display);
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .account-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 8px;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .account-item:last-child {
-            border-bottom: none;
-        }
-
-        .account-avatar {
-            width: 20px;
-            height: 20px;
-            border-radius: 4px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 7px;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .account-name {
-            flex: 1;
-            font-size: 9px;
-            color: var(--text-secondary);
-        }
-
-        .account-balance {
-            font-family: var(--font-display);
-            font-size: 9px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .recent-activity {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 8px;
-        }
-
-        .activity-title {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        .transaction {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 0;
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .transaction:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .tx-icon {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            background: var(--bg-glass);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            color: var(--text-muted);
-        }
-
-        .tx-icon.income {
-            background: rgba(16, 185, 129, 0.15);
-            color: var(--accent-emerald);
-        }
-
-        .tx-details {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .tx-desc {
-            display: block;
-            font-size: 9px;
-            font-weight: 500;
-            color: var(--text-primary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .tx-meta {
-            display: block;
-            font-size: 8px;
-            color: var(--text-muted);
-        }
-
-        .tx-amount {
-            font-family: var(--font-display);
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .tx-amount.positive {
-            color: var(--accent-emerald);
-        }
-
-        /* Floating cards */
-        .floating-card {
-            position: absolute;
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 1rem 1.25rem;
-            backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-xl);
-            animation: floatCard 8s ease-in-out infinite;
-        }
-
-        .floating-card-1 {
-            top: -20px;
-            right: -60px;
-            animation-delay: -2s;
-        }
-
-        .floating-card-2 {
-            bottom: 40px;
-            left: -80px;
-            animation-delay: -5s;
-        }
-
-        @keyframes floatCard {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
-        }
-
-        .floating-card .card-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.5rem;
-            font-size: 1.25rem;
-        }
-
-        .floating-card .card-title {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .floating-card .card-value {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 8rem 2rem;
-            background: var(--bg-primary);
-            position: relative;
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 5rem;
-        }
-
-        .section-tag {
-            display: inline-block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--accent-teal);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-
-        .section-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .features-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 2rem;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--gradient-glow);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .feature-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-5px);
-        }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            margin-bottom: 1.25rem;
-            position: relative;
-        }
-
-        .feature-icon.teal { background: rgba(20, 184, 166, 0.15); color: var(--accent-teal); }
-        .feature-icon.blue { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
-        .feature-icon.purple { background: rgba(139, 92, 246, 0.15); color: var(--accent-purple); }
-        .feature-icon.gold { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); }
-        .feature-icon.rose { background: rgba(244, 63, 94, 0.15); color: var(--accent-rose); }
-        .feature-icon.emerald { background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            position: relative;
-        }
-
-        .feature-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            position: relative;
-        }
-
-        /* Source Code Section */
-        .source-code {
-            padding: 6rem 2rem;
-            background: var(--bg-primary);
-        }
-
-        .repo-grid {
-            max-width: 900px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .repo-card {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
-            padding: 1.5rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-
-        .repo-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .repo-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: var(--radius-md);
-            background: rgba(20, 184, 166, 0.15);
-            color: var(--accent-teal);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .repo-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .repo-info h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .repo-info p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .repo-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 600;
-            padding: 0.2rem 0.5rem;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: 4px;
-            color: var(--text-muted);
-        }
-
-        .repo-arrow {
-            color: var(--text-muted);
-            transition: transform 0.2s;
-            flex-shrink: 0;
-        }
-
-        .repo-card:hover .repo-arrow {
-            transform: translate(3px, -3px);
-            color: var(--accent-teal);
-        }
-
-        /* Integrations Section */
-        .integrations {
-            padding: 6rem 2rem;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-subtle);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .integrations-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .integrations h2 {
-            font-size: 1.75rem;
-            margin-bottom: 3rem;
-            color: var(--text-secondary);
-        }
-
-        .integration-logos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 3rem;
-        }
-
-        .integration-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.75rem;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-        }
-
-        .integration-logo:hover {
-            opacity: 1;
-        }
-
-        .integration-icon {
-            width: 64px;
+            padding: 0 40px;
             height: 64px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
-            overflow: hidden;
+            background: rgba(250, 250, 248, 0.85);
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
         }
-
-        .integration-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: var(--radius-lg);
-        }
-
-        .integration-name {
-            font-size: 0.85rem;
-            color: var(--text-muted);
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-family: var(--sans);
             font-weight: 500;
+            font-size: 15px;
+            letter-spacing: -0.01em;
+            color: var(--text);
+        }
+        .nav-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
         }
 
-        /* CTA Section */
-        .cta {
-            padding: 8rem 2rem;
-            background: var(--bg-primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-bg {
-            position: absolute;
-            inset: 0;
-        }
-
-        .cta-orb {
-            position: absolute;
-            width: 800px;
-            height: 800px;
-            background: var(--accent-teal);
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .cta-content {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
+        /* ─── HERO ─── */
+        .hero {
+            padding: 160px 40px 0;
             text-align: center;
         }
-
-        .cta h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1.5rem;
+        .hero-eyebrow {
+            font-family: var(--sans);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
         }
-
-        .cta p {
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(48px, 7vw, 88px);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.025em;
+            max-width: 800px;
+            margin: 0 auto 24px;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+        .hero-sub {
+            font-size: 18px;
+            line-height: 1.6;
             color: var(--text-secondary);
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-features {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .cta-feature {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .cta-feature .check {
-            color: var(--accent-emerald);
-            font-size: 1.25rem;
-        }
-
-        /* Footer */
-        footer {
-            padding: 3rem 2rem;
-            background: var(--bg-deep);
-            border-top: 1px solid var(--border-subtle);
-        }
-
-        .footer-content {
-            max-width: 1200px;
+            max-width: 520px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
+            font-weight: 300;
         }
 
-        .footer-left {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
+        /* ─── HERO DEVICE ─── */
+        .hero-device {
+            max-width: 1100px;
+            margin: 80px auto 0;
+            padding: 0 20px;
+            position: relative;
         }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
-            color: var(--text-primary);
+        .browser-frame {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow:
+                0 1px 2px rgba(0,0,0,0.04),
+                0 4px 16px rgba(0,0,0,0.06),
+                0 24px 80px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.06);
         }
-
-        .footer-logo .logo-icon {
-            width: 32px;
-            height: 32px;
-            font-size: 1rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .footer-right {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
+        .browser-bar {
             height: 40px;
-            background: var(--bg-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            background: #F9F9F9;
+            border-bottom: 1px solid #ECECEC;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 8px;
+        }
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #E0E0E0;
+        }
+        .browser-dot:nth-child(1) { background: #FF5F57; }
+        .browser-dot:nth-child(2) { background: #FFBD2E; }
+        .browser-dot:nth-child(3) { background: #28CA42; }
+        .browser-bar-url {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            font-family: var(--sans);
+        }
+        .browser-frame img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Phone positioned overlapping hero */
+        .hero-phone {
+            position: absolute;
+            right: 40px;
+            bottom: -60px;
+            width: 200px;
+            z-index: 10;
+        }
+        .phone-frame {
+            background: #fff;
+            border-radius: 28px;
+            padding: 8px;
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.04),
+                0 8px 24px rgba(0,0,0,0.08),
+                0 32px 80px rgba(0,0,0,0.12);
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+        .phone-frame img {
+            width: 100%;
+            display: block;
+            border-radius: 20px;
+        }
+
+        /* ─── SECTION ─── */
+        .section {
+            padding: 140px 40px;
+            max-width: var(--max-w);
+            margin: 0 auto;
+        }
+        .section-number {
+            font-family: var(--serif);
+            font-size: 14px;
+            color: var(--text-tertiary);
+            margin-bottom: 16px;
+            display: block;
+        }
+        .section h2 {
+            font-family: var(--serif);
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 400;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .section p {
+            font-size: 17px;
+            line-height: 1.7;
             color: var(--text-secondary);
+            max-width: 480px;
+            font-weight: 300;
         }
 
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--border-glow);
-            color: var(--text-primary);
+        /* ─── FEATURE LAYOUTS ─── */
+        .feature {
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .feature.reverse {
+            grid-template-columns: 1.4fr 1fr;
+        }
+        .feature.reverse .feature-text { order: 2; }
+        .feature.reverse .feature-media { order: 1; }
+
+        .feature-media {
+            position: relative;
         }
 
-        [data-theme="light"] .theme-toggle:hover {
-            background: rgba(0, 0, 0, 0.05);
+        /* Desktop screenshot in frame */
+        .media-desktop {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow:
+                0 1px 2px rgba(0,0,0,0.04),
+                0 4px 12px rgba(0,0,0,0.05),
+                0 16px 48px rgba(0,0,0,0.07);
+            border: 1px solid rgba(0,0,0,0.06);
+            background: #fff;
         }
-
-        .theme-toggle svg {
-            width: 20px;
-            height: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .theme-toggle:hover svg {
-            transform: rotate(15deg);
-        }
-
-        .theme-toggle .icon-sun,
-        .theme-toggle .icon-moon {
-            display: none;
-        }
-
-        .theme-toggle .icon-moon {
+        .media-desktop img {
+            width: 100%;
             display: block;
         }
 
-        [data-theme="light"] .theme-toggle .icon-moon {
-            display: none;
+        /* Phone overlapping desktop */
+        .media-phone {
+            position: absolute;
+            right: -30px;
+            bottom: -40px;
+            width: 160px;
+            z-index: 5;
+        }
+        .media-phone .phone-frame {
+            border-radius: 24px;
+            padding: 6px;
+        }
+        .media-phone .phone-frame img {
+            border-radius: 18px;
         }
 
-        [data-theme="light"] .theme-toggle .icon-sun {
-            display: block;
+        /* Desktop-only (no phone) */
+        .media-solo .media-desktop {
+            max-width: 100%;
         }
 
-        /* Mobile theme toggle */
-        .mobile-theme-toggle {
-            display: none;
+        /* ─── DIVIDER ─── */
+        .divider {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        .divider-line {
+            height: 1px;
+            background: var(--border);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-content {
+        /* ─── FOOTER ─── */
+        footer {
+            padding: 60px 40px 80px;
+            text-align: center;
+        }
+        footer p {
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .hero { padding: 130px 24px 0; }
+            .hero-device { padding: 0 16px; }
+            .hero-phone { width: 140px; right: 20px; bottom: -40px; }
+            .section { padding: 80px 24px; }
+            .feature {
                 grid-template-columns: 1fr;
-                text-align: center;
+                gap: 40px;
             }
-
-            .hero-text {
-                max-width: 100%;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-visual {
-                display: none;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-theme-toggle {
-                display: flex;
+            .feature.reverse .feature-text { order: 1; }
+            .feature.reverse .feature-media { order: 2; }
+            .media-phone {
+                width: 120px;
+                right: -10px;
+                bottom: -24px;
             }
         }
 
-        @media (max-width: 768px) {
-            .hero {
-                padding: 7rem 1.5rem 3rem;
-            }
-
-            .features, .cta {
-                padding: 5rem 1.5rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .footer-left {
-                flex-direction: column;
-            }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 40px; }
+            .hero-sub { font-size: 16px; }
+            .hero-phone { display: none; }
+            .browser-bar { height: 32px; }
+            .browser-dot { width: 8px; height: 8px; }
+            .browser-bar-url { display: none; }
+            .section h2 { font-size: 28px; }
+            .media-phone { width: 100px; right: -8px; bottom: -16px; }
         }
-
-        /* Animations on scroll */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stagger-1 { transition-delay: 0.1s; }
-        .stagger-2 { transition-delay: 0.2s; }
-        .stagger-3 { transition-delay: 0.3s; }
-        .stagger-4 { transition-delay: 0.4s; }
-        .stagger-5 { transition-delay: 0.5s; }
-        .stagger-6 { transition-delay: 0.6s; }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">W</div>
-                <span class="logo-text">Personal Wallet</span>
-            </a>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#integrations">Integrations</a>
-                <a href="#source-code">Source</a>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                    </svg>
-                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                    </svg>
-                </button>
-                <a href="#source-code" class="nav-cta">Get Started</a>
-            </div>
-            <button class="theme-toggle mobile-theme-toggle" id="mobileThemeToggle" aria-label="Toggle theme">
-                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-                </svg>
-                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-                </svg>
-            </button>
+
+<nav>
+    <div class="nav-inner">
+        <img src="screenshots/app-icon.png" alt="" class="nav-icon">
+        Personal Wallet
+    </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+    <p class="hero-eyebrow reveal">Self-hosted personal finance</p>
+    <h1 class="reveal">Your finances,<br><em>one view</em></h1>
+    <p class="hero-sub reveal">Track bank accounts, crypto exchanges, DeFi wallets, budgets, and savings goals. Web and native iOS.</p>
+</section>
+
+<div class="hero-device reveal">
+    <div class="browser-frame">
+        <div class="browser-bar">
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-dot"></span>
+            <span class="browser-bar-url">localhost:3015/portfolio</span>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <div class="gradient-orb orb-1"></div>
-            <div class="gradient-orb orb-2"></div>
-            <div class="gradient-orb orb-3"></div>
-            <div class="grid-overlay"></div>
+        <img src="screenshots/portfolio.png" alt="Portfolio view showing net worth, allocation charts, and account balances">
+    </div>
+    <div class="hero-phone">
+        <div class="phone-frame">
+            <img src="screenshots/ios-portfolio.png" alt="Portfolio view on iOS">
         </div>
+    </div>
+</div>
 
-        <div class="hero-content">
-            <div class="hero-text">
-                <div class="hero-badge">
-                    <span class="dot"></span>
-                    Self-hosted &amp; Private
-                </div>
-                <h1>
-                    Your Complete<br>
-                    <span class="gradient-text">Financial Picture</span>
-                </h1>
-                <p class="hero-description">
-                    Track bank accounts, crypto exchanges, and DeFi wallets in one unified dashboard.
-                    Self-hosted, private, and completely under your control.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#source-code" class="btn btn-primary">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                        </svg>
-                        View Source Code
-                    </a>
-                    <a href="#features" class="btn btn-secondary">
-                        Explore Features
-                    </a>
-                </div>
+<!-- ═══ PORTFOLIO ═══ -->
+<section class="section">
+    <div class="feature reveal">
+        <div class="feature-text">
+            <span class="section-number">01</span>
+            <h2>Portfolio &amp; net worth</h2>
+            <p>See your total value across every account in one place. Interactive net worth charts track your wealth over time, while allocation breakdowns show exactly where your money sits — by account type or by asset.</p>
+        </div>
+        <div class="feature-media">
+            <div class="media-desktop">
+                <img src="screenshots/portfolio.png" alt="Portfolio overview with net worth chart and allocation donuts">
             </div>
-
-            <div class="hero-visual">
-                <div class="dashboard-mockup">
-                    <div class="mockup-window app-window">
-                        <div class="mockup-header">
-                            <div class="mockup-dot red"></div>
-                            <div class="mockup-dot yellow"></div>
-                            <div class="mockup-dot green"></div>
-                        </div>
-                        <div class="app-layout">
-                            <!-- Sidebar -->
-                            <div class="app-sidebar">
-                                <div class="sidebar-logo">W</div>
-                                <div class="sidebar-nav">
-                                    <div class="sidebar-item active">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                                    </div>
-                                    <div class="sidebar-item">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                                    </div>
-                                    <div class="sidebar-item">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"/></svg>
-                                    </div>
-                                    <div class="sidebar-item">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-                                    </div>
-                                    <div class="sidebar-item">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Main Content -->
-                            <div class="app-main">
-                                <!-- Header -->
-                                <div class="app-header">
-                                    <div>
-                                        <span class="app-subtitle">Welcome back</span>
-                                        <span class="app-title">Dashboard</span>
-                                    </div>
-                                    <div class="currency-toggle">NZD</div>
-                                </div>
-                                <!-- Net Worth Card -->
-                                <div class="networth-card">
-                                    <div class="networth-info">
-                                        <span class="networth-label">Total Net Worth</span>
-                                        <span class="networth-value">$127,842</span>
-                                        <span class="networth-accounts">Across 8 accounts</span>
-                                    </div>
-                                    <div class="donut-chart">
-                                        <svg viewBox="0 0 36 36">
-                                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="3"/>
-                                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#3B82F6" stroke-width="3" stroke-dasharray="40 60" stroke-dashoffset="25"/>
-                                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#8B5CF6" stroke-width="3" stroke-dasharray="25 75" stroke-dashoffset="-15"/>
-                                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#F97316" stroke-width="3" stroke-dasharray="20 80" stroke-dashoffset="-40"/>
-                                            <circle cx="18" cy="18" r="15.9" fill="none" stroke="#22C55E" stroke-width="3" stroke-dasharray="15 85" stroke-dashoffset="-60"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <!-- Account Groups -->
-                                <div class="account-groups">
-                                    <div class="account-group">
-                                        <div class="group-header">
-                                            <div class="group-icon blue">
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5"/></svg>
-                                            </div>
-                                            <span class="group-name">Bank Accounts</span>
-                                            <span class="group-total">$52,340</span>
-                                        </div>
-                                        <div class="account-item">
-                                            <span class="account-avatar">AN</span>
-                                            <span class="account-name">ANZ Everyday</span>
-                                            <span class="account-balance">$8,240</span>
-                                        </div>
-                                        <div class="account-item">
-                                            <span class="account-avatar">WI</span>
-                                            <span class="account-name">Wise USD</span>
-                                            <span class="account-balance">$44,100</span>
-                                        </div>
-                                    </div>
-                                    <div class="account-group">
-                                        <div class="group-header">
-                                            <div class="group-icon purple">
-                                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-                                            </div>
-                                            <span class="group-name">Crypto Exchanges</span>
-                                            <span class="group-total">$38,450</span>
-                                        </div>
-                                        <div class="account-item">
-                                            <span class="account-avatar">OK</span>
-                                            <span class="account-name">OKX</span>
-                                            <span class="account-balance">$24,200</span>
-                                        </div>
-                                        <div class="account-item">
-                                            <span class="account-avatar">BY</span>
-                                            <span class="account-name">Bybit</span>
-                                            <span class="account-balance">$14,250</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Recent Activity -->
-                                <div class="recent-activity">
-                                    <span class="activity-title">Recent Activity</span>
-                                    <div class="transaction">
-                                        <div class="tx-icon income">↓</div>
-                                        <div class="tx-details">
-                                            <span class="tx-desc">Salary Deposit</span>
-                                            <span class="tx-meta">ANZ Everyday · Today</span>
-                                        </div>
-                                        <span class="tx-amount positive">+$4,850</span>
-                                    </div>
-                                    <div class="transaction">
-                                        <div class="tx-icon">↑</div>
-                                        <div class="tx-details">
-                                            <span class="tx-desc">Countdown Groceries</span>
-                                            <span class="tx-meta">ANZ Everyday · Yesterday</span>
-                                        </div>
-                                        <span class="tx-amount">-$156.40</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+            <div class="media-phone">
+                <div class="phone-frame">
+                    <img src="screenshots/ios-portfolio.png" alt="Portfolio on iOS showing net worth chart">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="section-header fade-up">
-            <span class="section-tag">Features</span>
-            <h2>Everything you need to track your wealth</h2>
-            <p>A powerful, self-hosted solution for managing all your financial accounts in one place.</p>
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ═══ DAILY FINANCES ═══ -->
+<section class="section">
+    <div class="feature reverse reveal">
+        <div class="feature-text">
+            <span class="section-number">02</span>
+            <h2>Daily finances</h2>
+            <p>Monthly spending broken down by category with donut charts that make patterns obvious at a glance. All your daily accounts — banks, Wise, cash — with live balances and recent activity.</p>
         </div>
-
-        <div class="features-grid">
-            <div class="feature-card fade-up stagger-1">
-                <div class="feature-icon teal">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-                        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-                    </svg>
-                </div>
-                <h3>Unified Dashboard</h3>
-                <p>See your complete net worth across all accounts—banks, exchanges, and wallets—in a single view.</p>
+        <div class="feature-media">
+            <div class="media-desktop">
+                <img src="screenshots/dashboard.png" alt="Dashboard showing spending by category donut chart and account balances">
             </div>
-
-            <div class="feature-card fade-up stagger-2">
-                <div class="feature-icon blue">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-                    </svg>
-                </div>
-                <h3>Multi-Currency Display</h3>
-                <p>View all your holdings in NZD, USD, or BTC. Switch between currencies with a single click.</p>
-            </div>
-
-            <div class="feature-card fade-up stagger-3">
-                <div class="feature-icon purple">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
-                    </svg>
-                </div>
-                <h3>Asset Allocation</h3>
-                <p>Visualize your portfolio with interactive donut charts showing allocation by asset type and currency.</p>
-            </div>
-
-            <div class="feature-card fade-up stagger-4">
-                <div class="feature-icon gold">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                    </svg>
-                </div>
-                <h3>Net Worth History</h3>
-                <p>Track your wealth over time with daily snapshots and beautiful interactive line charts.</p>
-            </div>
-
-            <div class="feature-card fade-up stagger-5">
-                <div class="feature-icon rose">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                </div>
-                <h3>Transfer Detection</h3>
-                <p>Automatically detect internal transfers between accounts. No more duplicate income/expense entries.</p>
-            </div>
-
-            <div class="feature-card fade-up stagger-6">
-                <div class="feature-icon emerald">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                </div>
-                <h3>Self-Hosted & Private</h3>
-                <p>Your data stays on your server. No third-party access, no tracking, complete privacy.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Integrations Section -->
-    <section class="integrations" id="integrations">
-        <div class="integrations-content">
-            <h2>Connect all your accounts</h2>
-            <div class="integration-logos">
-                <!-- Akahu - Official logo -->
-                <div class="integration-logo fade-up stagger-1">
-                    <div class="integration-icon">
-                        <svg width="32" height="38" viewBox="0 0 32 38" fill="none">
-                            <path d="M28.39 31.98c-.76 0-1.41.26-1.93.78-.52.52-.79 1.17-.79 1.93s.27 1.4.79 1.93c.52.52 1.17.79 1.93.79s1.41-.26 1.93-.79c.52-.52.79-1.17.79-1.93s-.27-1.4-.79-1.93c-.52-.52-1.17-.78-1.93-.78z" fill="currentColor"/>
-                            <path d="M31.11 9.19c0-.76-.27-1.4-.79-1.93-.52-.52-1.17-.78-1.93-.78s-1.41.26-1.93.79c-.52.52-.79 1.17-.79 1.92v19.13c0 .76.27 1.4.79 1.93.52.52 1.17.79 1.93.79s1.41-.27 1.93-.79c.52-.52.79-1.17.79-1.93V9.19z" fill="currentColor"/>
-                            <path d="M22 19.23H9.22c-.76 0-1.41.26-1.93.79-.52.52-.79 1.17-.79 1.93s.27 1.4.79 1.93c.52.52 1.17.78 1.93.78H22c.76 0 1.41-.26 1.93-.78.52-.52.79-1.17.79-1.93s-.27-1.41-.79-1.93c-.52-.52-1.17-.79-1.93-.79z" fill="currentColor"/>
-                            <path d="M22 .1H9.22c-.76 0-1.41.27-1.93.79-.52.52-.79 1.17-.79 1.93s.27 1.4.79 1.93c.52.52 1.17.78 1.93.78H22c.76 0 1.41-.26 1.93-.78.52-.52.79-1.17.79-1.93s-.27-1.41-.79-1.93C23.41.37 22.76.1 22 .1z" fill="currentColor"/>
-                            <path d="M4.76 13.64c-.52-.52-1.17-.79-1.93-.79s-1.41.26-1.93.79c-.52.52-.79 1.17-.79 1.92v19.13c0 .76.27 1.41.79 1.93.52.52 1.17.79 1.93.79s1.41-.26 1.93-.79c.52-.52.79-1.17.79-1.93V15.56c0-.76-.27-1.4-.79-1.92z" fill="currentColor"/>
-                            <path d="M2.83 6.48c-.76 0-1.41.26-1.93.78-.52.52-.79 1.17-.79 1.93s.27 1.41.79 1.93c.52.52 1.17.78 1.93.78s1.41-.26 1.93-.78c.52-.52.79-1.17.79-1.93s-.27-1.41-.79-1.93c-.52-.52-1.17-.78-1.93-.78z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <span class="integration-name">Akahu (NZ Banks)</span>
-                </div>
-                <!-- Wise -->
-                <div class="integration-logo fade-up stagger-2">
-                    <div class="integration-icon">
-                        <img src="/wise-logo.webp" alt="Wise">
-                    </div>
-                    <span class="integration-name">Wise</span>
-                </div>
-                <!-- OKX -->
-                <div class="integration-logo fade-up stagger-3">
-                    <div class="integration-icon">
-                        <img src="/okx-logo.jpg" alt="OKX">
-                    </div>
-                    <span class="integration-name">OKX</span>
-                </div>
-                <!-- Bybit -->
-                <div class="integration-logo fade-up stagger-4">
-                    <div class="integration-icon">
-                        <img src="/bybit-logo.jpg" alt="Bybit">
-                    </div>
-                    <span class="integration-name">Bybit</span>
-                </div>
-                <!-- MEXC -->
-                <div class="integration-logo fade-up stagger-5">
-                    <div class="integration-icon">
-                        <img src="/mexc-logo.jpeg" alt="MEXC">
-                    </div>
-                    <span class="integration-name">MEXC</span>
-                </div>
-                <!-- Kucoin -->
-                <div class="integration-logo fade-up stagger-6">
-                    <div class="integration-icon">
-                        <img src="/kucoin-logo.avif" alt="Kucoin">
-                    </div>
-                    <span class="integration-name">Kucoin</span>
-                </div>
-                <!-- Ethereum / EVM Wallets -->
-                <div class="integration-logo fade-up stagger-1">
-                    <div class="integration-icon">
-                        <img src="/ethereum-logo.png" alt="Ethereum">
-                    </div>
-                    <span class="integration-name">EVM Wallets</span>
-                </div>
-                <!-- Solana - Official gradient logo -->
-                <div class="integration-logo fade-up stagger-2">
-                    <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 398 312" fill="none">
-                            <defs>
-                                <linearGradient id="solGrad1" x1="360" y1="351" x2="141" y2="-69" gradientTransform="matrix(1 0 0 -1 0 314)" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/>
-                                </linearGradient>
-                                <linearGradient id="solGrad2" x1="265" y1="402" x2="45" y2="-19" gradientTransform="matrix(1 0 0 -1 0 314)" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/>
-                                </linearGradient>
-                                <linearGradient id="solGrad3" x1="313" y1="377" x2="93" y2="-44" gradientTransform="matrix(1 0 0 -1 0 314)" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#00FFA3"/><stop offset="1" stop-color="#DC1FFF"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7z" fill="url(#solGrad1)"/>
-                            <path d="M64.6 3.8C67.1 1.4 70.4 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8z" fill="url(#solGrad2)"/>
-                            <path d="M333.1 120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z" fill="url(#solGrad3)"/>
-                        </svg>
-                    </div>
-                    <span class="integration-name">Solana</span>
-                </div>
-                <!-- THORChain - Official rune logo -->
-                <div class="integration-logo fade-up stagger-3">
-                    <div class="integration-icon">
-                        <svg width="32" height="32" viewBox="0 0 253 291" fill="none">
-                            <defs>
-                                <linearGradient id="thorGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                                    <stop stop-color="#00CCFF"/><stop offset="1" stop-color="#33FF99"/>
-                                </linearGradient>
-                            </defs>
-                            <path d="M0 290.5l202.8-85.4-64.2-65.1L0 290.5zM74.5 75l64.2 65L253.3 0 74.5 75z" fill="url(#thorGrad)"/>
-                        </svg>
-                    </div>
-                    <span class="integration-name">THORChain</span>
+            <div class="media-phone">
+                <div class="phone-frame">
+                    <img src="screenshots/ios-dashboard.png" alt="Dashboard on iOS with spending categories">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Source Code Section -->
-    <section class="source-code" id="source-code">
-        <div class="section-header fade-up">
-            <span class="section-tag">Open Source</span>
-            <h2>Get the source code</h2>
-            <p>Personal Wallet is fully open source. Clone the repos and self-host on your own server.</p>
+<div class="divider"><div class="divider-line"></div></div>
+
+<!-- ═══ TRANSACTIONS ═══ -->
+<section class="section">
+    <div class="feature reveal">
+        <div class="feature-text">
+            <span class="section-number">03</span>
+            <h2>Transaction tracking</h2>
+            <p>Every transaction across every account, searchable and filterable. Smart tagging with AI-powered suggestions, receipt capture, and automatic transfer detection between your accounts.</p>
         </div>
-
-        <div class="repo-grid">
-            <a href="https://github.com/h-gilbert/personal-wallet-frontend" target="_blank" class="repo-card fade-up stagger-1">
-                <div class="repo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>
-                    </svg>
-                </div>
-                <div class="repo-info">
-                    <h3>Frontend</h3>
-                    <p>Nuxt 3 + Vue 3 + TypeScript</p>
-                    <span class="repo-tag">Vue</span>
-                </div>
-                <svg class="repo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-                </svg>
-            </a>
-
-            <a href="https://github.com/h-gilbert/personal-wallet-backend" target="_blank" class="repo-card fade-up stagger-2">
-                <div class="repo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/>
-                    </svg>
-                </div>
-                <div class="repo-info">
-                    <h3>Backend</h3>
-                    <p>Go + Chi + PostgreSQL</p>
-                    <span class="repo-tag">Go</span>
-                </div>
-                <svg class="repo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-                </svg>
-            </a>
-
-            <a href="https://github.com/h-gilbert/personal-wallet-ios" target="_blank" class="repo-card fade-up stagger-3">
-                <div class="repo-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>
-                    </svg>
-                </div>
-                <div class="repo-info">
-                    <h3>iOS App</h3>
-                    <p>Swift + SwiftUI</p>
-                    <span class="repo-tag">Swift</span>
-                </div>
-                <svg class="repo-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-                </svg>
-            </a>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta">
-        <div class="cta-bg">
-            <div class="cta-orb"></div>
-        </div>
-        <div class="cta-content fade-up">
-            <h2>Take control of your finances</h2>
-            <p>Deploy Personal Wallet on your own server in minutes. Free, open-source, and always private.</p>
-            <div class="cta-features">
-                <div class="cta-feature">
-                    <span class="check">✓</span>
-                    <span>100% Open Source</span>
-                </div>
-                <div class="cta-feature">
-                    <span class="check">✓</span>
-                    <span>Self-Hosted</span>
-                </div>
-                <div class="cta-feature">
-                    <span class="check">✓</span>
-                    <span>Web + iOS Apps</span>
-                </div>
-                <div class="cta-feature">
-                    <span class="check">✓</span>
-                    <span>Docker Ready</span>
-                </div>
+        <div class="feature-media">
+            <div class="media-desktop">
+                <img src="screenshots/transactions.png" alt="Transaction list with tags, filters, and search">
             </div>
-            <a href="#source-code" class="btn btn-primary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-                </svg>
-                View Source Code
-            </a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-left">
-                <a href="#" class="footer-logo">
-                    <div class="logo-icon">W</div>
-                    <span class="logo-text">Personal Wallet</span>
-                </a>
-                <div class="footer-links">
-                    <a href="https://github.com/h-gilbert/personal-wallet-frontend" target="_blank">Frontend</a>
-                    <a href="https://github.com/h-gilbert/personal-wallet-backend" target="_blank">Backend</a>
-                    <a href="https://github.com/h-gilbert/personal-wallet-ios" target="_blank">iOS</a>
+            <div class="media-phone">
+                <div class="phone-frame">
+                    <img src="screenshots/ios-transactions.png" alt="Transactions on iOS with tag badges">
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
+</section>
 
-    <!-- Scroll animations & Theme Toggle -->
-    <script>
-        // Theme toggle functionality
-        (function() {
-            const html = document.documentElement;
-            const themeToggle = document.getElementById('themeToggle');
-            const mobileThemeToggle = document.getElementById('mobileThemeToggle');
+<div class="divider"><div class="divider-line"></div></div>
 
-            // Check for saved theme preference or default to dark
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'light') {
-                html.setAttribute('data-theme', 'light');
-            }
+<!-- ═══ BUDGET ═══ -->
+<section class="section">
+    <div class="feature reverse reveal">
+        <div class="feature-text">
+            <span class="section-number">04</span>
+            <h2>Budgeting</h2>
+            <p>Know your weekly spending power — income minus bills and budgets, calculated automatically. Transfer plans tell you exactly how much to move to each account. Track spending against each category in real time.</p>
+        </div>
+        <div class="feature-media media-solo">
+            <div class="media-desktop">
+                <img src="screenshots/budget.png" alt="Budget view with weekly spending power, transfer plan, and category tracking">
+            </div>
+        </div>
+    </div>
+</section>
 
-            // Toggle theme function
-            function toggleTheme() {
-                const currentTheme = html.getAttribute('data-theme');
-                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+<div class="divider"><div class="divider-line"></div></div>
 
-                if (newTheme === 'light') {
-                    html.setAttribute('data-theme', 'light');
-                } else {
-                    html.removeAttribute('data-theme');
-                }
+<!-- ═══ SAVINGS ═══ -->
+<section class="section">
+    <div class="feature reveal">
+        <div class="feature-text">
+            <span class="section-number">05</span>
+            <h2>Savings goals</h2>
+            <p>Set targets for what matters — a house deposit, a trip, an emergency fund. Link goals to accounts, set deadlines, and see exactly how much you need to save each week to get there.</p>
+        </div>
+        <div class="feature-media media-solo">
+            <div class="media-desktop">
+                <img src="screenshots/savings.png" alt="Savings goals with progress bars, deadlines, and linked accounts">
+            </div>
+        </div>
+    </div>
+</section>
 
-                localStorage.setItem('theme', newTheme);
-            }
+<!-- ═══ FOOTER ═══ -->
+<footer>
+    <p>Personal Wallet</p>
+</footer>
 
-            // Add click handlers to both toggles
-            themeToggle.addEventListener('click', toggleTheme);
-            mobileThemeToggle.addEventListener('click', toggleTheme);
-        })();
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            document.querySelectorAll('.fade-up').forEach(el => {
-                observer.observe(el);
-            });
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'var(--nav-bg-scroll)';
-            } else {
-                nav.style.background = 'var(--nav-bg)';
+<script>
+    // Intersection Observer for reveal animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
             }
         });
-    </script>
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -60px 0px'
+    });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
-<!-- deployed Fri 17 Jan 2026 15:52:00 NZDT -->
