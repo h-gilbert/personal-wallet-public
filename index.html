@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Wallet</title>
-    <meta name="description" content="A self-hosted personal finance app. Track bank accounts, crypto, budgets, and savings goals across web and iOS.">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="description" content="A personal finance app I built to track bank accounts, shares, index funds, KiwiSaver, crypto, budgets and savings goals. Web and native iOS.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
@@ -281,17 +283,6 @@
             background: var(--border);
         }
 
-        /* ─── FOOTER ─── */
-        footer {
-            padding: 60px 40px 80px;
-            text-align: center;
-        }
-        footer p {
-            font-size: 13px;
-            color: var(--text-tertiary);
-            font-weight: 400;
-        }
-
         /* ─── RESPONSIVE ─── */
         @media (max-width: 900px) {
             nav { padding: 0 24px; }
@@ -335,9 +326,9 @@
 
 <!-- ═══ HERO ═══ -->
 <section class="hero">
-    <p class="hero-eyebrow reveal">Self-hosted personal finance</p>
-    <h1 class="reveal">Your finances,<br><em>one view</em></h1>
-    <p class="hero-sub reveal">Track bank accounts, investments, crypto exchanges, DeFi wallets, budgets, and savings goals. Web and native iOS.</p>
+    <p class="hero-eyebrow reveal">A personal finance app I built for myself</p>
+    <h1 class="reveal">My finances,<br><em>one view</em></h1>
+    <p class="hero-sub reveal">Banks, index funds, shares, KiwiSaver, crypto exchanges and on-chain wallets in one balance, alongside budgeting and savings goals. A web app and a native iOS app, built from scratch.</p>
 </section>
 
 <div class="hero-device reveal">
@@ -363,7 +354,7 @@
         <div class="feature-text">
             <span class="section-number">01</span>
             <h2>Portfolio &amp; net worth</h2>
-            <p>See your total value across every account in one place. Interactive net worth charts track your wealth over time, while allocation breakdowns show exactly where your money sits — by account type or by asset.</p>
+            <p>Anything with a value goes in: bank balances, index funds and share portfolios, KiwiSaver, crypto exchanges and on-chain wallets. They add up to one number, in NZD, USD or BTC, charted as far back as the daily snapshots go. The donuts split that total by account type and by individual asset. Each position keeps its cost basis, so a holding shows what it has returned, not only what it is worth today.</p>
         </div>
         <div class="feature-media">
             <div class="media-desktop">
@@ -386,15 +377,15 @@
         <div class="feature-text">
             <span class="section-number">02</span>
             <h2>Daily finances</h2>
-            <p>Monthly spending broken down by category with donut charts that make patterns obvious at a glance. All your daily accounts — banks, Wise, cash — with live balances and recent activity.</p>
+            <p>Bank, Wise and cash accounts, with current balances and the latest transactions. The month's spending is split by tag, so an expensive month in one category is hard to miss.</p>
         </div>
         <div class="feature-media">
             <div class="media-desktop">
-                <img src="screenshots/dashboard.png" alt="Dashboard showing spending by category donut chart and account balances">
+                <img src="screenshots/dashboard.png" alt="Dashboard showing spending by tag and account balances">
             </div>
             <div class="media-phone">
                 <div class="phone-frame">
-                    <img src="screenshots/ios-dashboard.png" alt="Dashboard on iOS with spending categories">
+                    <img src="screenshots/ios-dashboard.png" alt="Dashboard on iOS with spending by tag">
                 </div>
             </div>
         </div>
@@ -409,7 +400,7 @@
         <div class="feature-text">
             <span class="section-number">03</span>
             <h2>Transaction tracking</h2>
-            <p>Every transaction across every account, searchable and filterable. Smart tagging with AI-powered suggestions, receipt capture, and automatic transfer detection between your accounts.</p>
+            <p>Every transaction from every account, searchable and filterable. Tags go on by hand or come from a suggestion that learns from earlier tagging, and a photographed receipt attaches to the transaction. Money moved between my own accounts shows up as a transfer, not as income on one side and an expense on the other.</p>
         </div>
         <div class="feature-media">
             <div class="media-desktop">
@@ -432,7 +423,7 @@
         <div class="feature-text">
             <span class="section-number">04</span>
             <h2>Budgeting</h2>
-            <p>Know your weekly spending power — income minus bills and budgets, calculated automatically. Transfer plans tell you exactly how much to move to each account. Track spending against each category in real time.</p>
+            <p>Weekly spending power is income minus bills and budgets. The transfer plan turns that into the amount to move into each account on payday, and spending against each category updates as transactions arrive. Nothing gets blocked or capped. It just shows where things stand.</p>
         </div>
         <div class="feature-media media-solo">
             <div class="media-desktop">
@@ -450,7 +441,7 @@
         <div class="feature-text">
             <span class="section-number">05</span>
             <h2>Savings goals</h2>
-            <p>Set targets for what matters — a house deposit, a trip, an emergency fund. Link goals to accounts, set deadlines, and see exactly how much you need to save each week to get there.</p>
+            <p>Each goal has an amount, a deadline and the account holding the money. It follows that balance and works out the weekly amount needed to land on the date.</p>
         </div>
         <div class="feature-media media-solo">
             <div class="media-desktop">
@@ -459,11 +450,6 @@
         </div>
     </div>
 </section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-    <p>Personal Wallet</p>
-</footer>
 
 <script>
     // Intersection Observer for reveal animations
